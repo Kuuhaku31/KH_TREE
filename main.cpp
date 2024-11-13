@@ -16,6 +16,10 @@ main()
     initgraph(GRAPH_WIDE, 600);
     setbkcolor(LIGHTGRAY);
 
+    Camera camera;
+    camera.set_size(Vector2(GRAPH_WIDE, GRAPH_HIGH));
+    camera.set_position(Vector2(0, 0));
+
     char ch = 0;
     do
     {
@@ -105,6 +109,15 @@ main()
                     }
                 }
             }
+            break;
+
+            case 'c':
+            {
+                std::cout << "Move camera to where? (x y): ";
+                int x, y;
+                std::cin >> x >> y;
+                camera.look_at(Vector2(x, y));
+            }
 
             default:
             {
@@ -112,9 +125,71 @@ main()
             break;
         }
 
-        cleardevice();
-        DrawTree(root, GRAPH_WIDE / 2, 10, 0, GRAPH_WIDE);
+        ExMessage msg;
 
+        bool is_roop = true;
+        BeginBatchDraw();
+        while(is_roop)
+        {
+            while(peekmessage(&msg))
+            {
+                switch(msg.message)
+                {
+                    case WM_KEYDOWN:
+                    {
+                        switch(msg.ch)
+                        {
+                            case VK_UP:
+                            {
+                                camera.set_position(camera.get_position() + Vector2(0, -10));
+                            }
+                            break;
+
+                            case VK_DOWN:
+                            {
+                                camera.set_position(camera.get_position() + Vector2(0, 10));
+                            }
+                            break;
+
+                            case VK_LEFT:
+                            {
+                                camera.set_position(camera.get_position() + Vector2(-10, 0));
+                            }
+                            break;
+
+                            case VK_RIGHT:
+                            {
+                                camera.set_position(camera.get_position() + Vector2(10, 0));
+                            }
+                            break;
+
+                            case 'P':
+                            {
+                                is_roop = false;
+                            }
+
+                            default:
+                            {
+                            }
+                            break;
+                        }
+                    }
+                    break;
+
+                    default:
+                    {
+                    }
+                    break;
+                }
+            }
+
+            cleardevice();
+            DrawTree(camera, Vector2(0, 0), root, 3000);
+            FlushBatchDraw();
+        }
+        EndBatchDraw();
+
+        std::cout << "Input command: ";
         std::cin >> ch;
     } while(ch != 'q');
     std::cout << "Bye!" << std::endl;

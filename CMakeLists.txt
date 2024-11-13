@@ -10,6 +10,6 @@ file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/*.cpp)
 
 add_executable(${PROJECT_NAME} ${SRC_FILES})
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR})
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/base)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC easyx)

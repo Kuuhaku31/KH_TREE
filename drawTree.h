@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include "camera.h"
+
 #include <graphics.h>
 #include <iostream>
 
@@ -34,4 +36,4 @@ struct AVLTreeNode : public TreeNode
 };
 
 void
-DrawTree(TreeNode* root, int x, int y, int current_hight, int tree_wide);
+DrawTree(const Camera& camera, const Vector2& pos, TreeNode* root, int tree_wide);
