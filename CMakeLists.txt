@@ -17,3 +17,7 @@ add_executable(binary_heap binary_heap.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/base)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC easyx)
+
+# graph
+file(GLOB SRC_FILES_GRAPH ${PROJECT_SOURCE_DIR}/src/*.cpp)
+add_executable(graph ${SRC_FILES_GRAPH})
